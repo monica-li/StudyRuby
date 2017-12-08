@@ -3,4 +3,4 @@ host : 47.92.123.34
 port : 
 user : qiushijiayuan
 password : qsjy1234
-download_dir : spec/downloadfiles
+download_dir : spec\downloadfiles
