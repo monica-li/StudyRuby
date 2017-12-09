@@ -22,6 +22,7 @@ module HotCloud
         # the test in one place. In the case of selenium, this opens the browsing session.
         #
         # @param [String] url	session url example: "http://dsqapc04:8080/livecluster/admin/control/dashboard/dashboard_index.jsp"
+        #
         def open_session(url, browser="firefox")
           Capybara.run_server = false
           browser = browser.downcase
@@ -56,41 +57,19 @@ module HotCloud
 		# 	login('admin', 'admin')
 		# @param [String] username 	username to login with
 		# @param [String] password 	password to login with
+        #
 		def login(username, password)
   		  fill_in('username', :with=> username)
 		  fill_in('password', :with=> password)
 		  click_button('')
 		end
-
-        ##
-        #
-        # A helper method to check the alert present or not
-        #
-        def alert_present?
-          begin
-            page.driver.browser.switch_to.alert
-            return true
-          rescue Selenium::WebDriver::Error::NoAlertPresentError
-            return false
-          end
-        end
 		
         ##
         #
-        # A helper method to return the alert text, if alert exist, accept it and return it's text
+        # sign out the system.
         #
-        def get_alert
-          alert = page.driver.browser.switch_to.alert
-          info = alert.text
-          alert.accept
-          return info
-        end
-		
-        ##
-        #
-        # sign out the TIBCO Silver Fabric.
         def sign_out
-          find(:data-ng-click, 'doLogout()').click
+           find('a', :text=>'Quit').click
         end
 
         ##
