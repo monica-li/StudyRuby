@@ -26,17 +26,10 @@ module HotCloud
         def open_session(url, browser="firefox")
           Capybara.run_server = false
           browser = browser.downcase
-          @download_directory ||=  @@download_dir
-          @download_directory.gsub!("/", "\\") if Selenium::WebDriver::Platform.windows?
           Capybara.register_driver :selenium_browser do |app|
             case browser
             when "firefox"
-              profile = Selenium::WebDriver::Firefox::Profile.new
-              profile['browser.download.folderList'] = 2
-              profile["browser.download.dir"] = @download_directory
-              profile['browser.helperApps.neverAsk.saveToDisk'] = "application/java-archive;application/zip;application/pdf"
-              profile['browser.download.manager.showWhenStartin'] = false
-              Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => profile)
+              Capybara::Selenium::Driver.new(app, :browser => :firefox)
             when "chrome"
               Capybara::Selenium::Driver.new(app, :browser => :chrome)
             when "ie"
@@ -48,7 +41,7 @@ module HotCloud
 
           Capybara.default_driver = :selenium_browser
           Capybara.app_host = url
-          Capybara.default_wait_time=15
+          Capybara.default_max_wait_time=15
           visit("")
         end
 
@@ -80,7 +73,8 @@ module HotCloud
         #
         def popup_window
           Util.wait_open_popup_window
-          popup = page.driver.browser.window_handles.last
+#          popup = page.driver.browser.window_handles.last
+		  popup = switch_to_window(windows.last)
           within_window(popup) do
             yield
             Util.wait_close_popup_window

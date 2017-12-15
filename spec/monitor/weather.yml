@@ -1,0 +1,13 @@
+# weather information
+
+day: "2017-12-14"
+hour: "01"
+province: "北京"
+city: "北京市"
+district: "东城区"
+street: ""
+lightcondition: "晴"
+raincondition: "无"
+windspeed: "3"
+temperature: "2"
+humity: ""
