@@ -5,7 +5,9 @@ require 'rspec'
 require 'yaml'
 require 'ostruct'
 
-require 'G:\\HotCloud\\TestSpecs\\StudyRuby\\lib\\hot_cloud\\util.rb'
+require 'G:\\HotCloud\\StudyRuby\\lib\\hot_cloud\\util.rb'
+require 'G:\\HotCloud\\StudyRuby\\lib\\hot_cloud\\projectdefaultpage.rb'
+require 'G:\\HotCloud\\StudyRuby\\lib\\hot_cloud\\monitorWeatherEditor.rb'
 
 include HotCloud::UI
 include Capybara::DSL
@@ -23,6 +25,11 @@ module SpecHelper
     $system_config ||= load_config(@@SERVER_CONFIG_PATH)
     url = "#{$system_config.protocol}://#{$system_config.host}:#{$system_config.port}"
     Util.open_session(url)
+    Util.login($system_config.user, $system_config.password)
+  end
+
+  def login_with_current_session
+    $system_config ||= load_config(@@SERVER_CONFIG_PATH)
     Util.login($system_config.user, $system_config.password)
   end
 
