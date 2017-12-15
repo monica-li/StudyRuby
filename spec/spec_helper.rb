@@ -67,7 +67,7 @@ module SpecHelper
     $system_config ||= load_config(@@SERVER_CONFIG_PATH)
     { :host => $system_config.host, :port => $system_config.port, :user => $system_config.host, :password => $system_config.password }
   end
-
+  
 end
 
 include SpecHelper

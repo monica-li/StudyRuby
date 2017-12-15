@@ -5,7 +5,7 @@ describe "increase the temperature" do
 	SpecHelper::open_session_with_login
   end
   
-  it "increase temperature" do
+  it "add new temperature" do
     weather=SpecHelper::load_config(File.expand_path(File.dirname(__FILE__) + '/weather.yml'))
     MonitorWeatherEditor.new_weather(weather)
     expect(page.has_content?("Welcome")).to be true

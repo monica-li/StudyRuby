@@ -12,8 +12,9 @@ module HotCloud
         #
         def increase_temperature
 		  current_page = page.driver.browser.window_handle
+		  find(:id, "increasetempraturebutton").click
 		  Util.popup_window do
-			find(:type, 'submit').click
+			find(:id, "doincrease").click
 		  end
           Util.wait_close_popup_window
           page.driver.browser.switch_to.window(current_page)
@@ -22,7 +23,7 @@ module HotCloud
         def cancel_increase_temperature
 		  current_page = page.driver.browser.window_handle
 		  Util.popup_window do
-			find(:type, 'button').click
+			find(:id, "cancel").click
 		  end
           Util.wait_close_popup_window
           page.driver.browser.switch_to.window(current_page)
