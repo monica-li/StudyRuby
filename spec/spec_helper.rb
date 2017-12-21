@@ -5,9 +5,9 @@ require 'rspec'
 require 'yaml'
 require 'ostruct'
 
-require 'G:\\HotCloud\\StudyRuby\\lib\\hot_cloud\\util.rb'
-require 'G:\\HotCloud\\StudyRuby\\lib\\hot_cloud\\projectdefaultpage.rb'
-require 'G:\\HotCloud\\StudyRuby\\lib\\hot_cloud\\monitorWeatherEditor.rb'
+require './lib/hot_cloud/util.rb'
+require './lib/hot_cloud/projectdefaultpage.rb'
+require './lib/hot_cloud/monitorWeatherEditor.rb'
 
 include HotCloud::UI
 include Capybara::DSL

@@ -1,6 +1,6 @@
 require 'capybara'
 require 'capybara/dsl'
-require 'selenium/client'
+#require 'selenium/client'
 require 'selenium-webdriver'
 
 ##
