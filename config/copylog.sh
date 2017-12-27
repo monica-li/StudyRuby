@@ -7,7 +7,7 @@ serverlogpath=/usr/local/glassfish4/glassfish/domains/domain1/logs
 logfile=server.log_2017-09-01*
 serveruser=root
 
-if [! -d $locallogpath]; then
+if [ ! -d $locallogpath ]; then
  mkdir $locallogpath
 fi
 cd $logpath
