@@ -63,7 +63,14 @@ module HotCloud
 		  find('li', :text=>'分时天气数据').click
 		  current_page = page.driver.browser.window_handle
 		  
-		  chengqu=""
+		  district=""
+		  date=""
+		  hour=""
+		  light=""
+		  rain=""
+		  windSpeed="<3"
+		  temp="0"
+		  humidity="0"
 		  jsl.each do |j|
 		    diqu=JSON.parse(j)
 		    diqu.each do |k,v|
@@ -72,66 +79,68 @@ module HotCloud
 		       v.each do |dk,dv|
 		         dv.each do |dkk,dkv|
 		           if dkk == "name"
-		              chengqu = dkv
-		              puts chengqu
+		            district = dkv
+		            puts district
 		           end
 		         end
 		         if dk == "hourly"
 		           dv.each do |hdk,hdv|
 		             hdk.each do |tqk,tqv|
+#					   puts tqk,tqv
+					   case tqk
+					   when "date"
+						 date=tqv
+						 puts date
+					   when "hour"
+						 hour=tqv
+						 puts hour
+					   when "condition"
+						 case tqv
+						 when "晴"
+						   light="晴"
+						 when "雾"
+						   light="多云"
+						   rain=tqv
+						 when "多云"
+						   light="多云"
+						 when "少云"
+						   light="多云"
+					     else
+						   light="阴天"
+						   rain=tqv
+						 end
+					   when "windSpeed"
+						 case tqv
+						 when 12 .. 19
+						   windSpeed="3"
+						 when 20 .. 28
+						   windSpeed="4"
+						 when 29 .. 38
+						   windSpeed="5"
+						 when 39 .. 49
+						   windSpeed="6"
+						 when 50 .. 61
+						   windSpeed="7"
+						 else
+						   windSpeed="8"
+						 end
+					   when "temp"
+						 temp=tqv
+					   when "humidity"
+						 humidity=tqv
+					   end
 					   click_button('newbt')
 					   Util.popup_window do
+						 fill_in('date', :with=>date)
+						 select(hour, :from => "hour")
 					     select("北京", :from => "province")
 						 select("北京市", :from => "city")
-						 select(chengqu, :from => "district")
-					     case tqk
-					     when "date"
-						   puts tqv
-						   fill_in('date', :with=>tqv)
-						 when "hour"
-						   puts tqv
-						   select(tqv, :from => "hour")
-					     when "condition"
-						   light="晴"
-						   rain="无"
-						   case tqv
-						   when "晴"
-						     light="晴"
-						   when "雾"
-						     light="多云"
-							 rain=tqv
-						   when "多云"
-						     light="多云"
-						   when "少云"
-						     light="多云"
-					       else
-						     light="阴天"
-							 rain=tqv
-						   end
-						   select(light, :from => "lightCondition")
-						   select(rain, :from => "rainCondition")
-						 when "windSpeed"
-						   windSpeed="<3"
-						   case tqv
-						   when 12 .. 19
-						     windSpeed="3"
-						   when 20 .. 28
-						     windSpeed="4"
-						   when 29 .. 38
-						     windSpeed="5"
-						   when 39 .. 49
-						     windSpeed="6"
-						   when 50 .. 61
-						     windSpeed="7"
-						   when 62 .. 74
-						     windSpeed="8"
-						   end
-						   select(windSpeed, :from => "wind_speed")
-						 when "temp"
-						   fill_in('temprature', :with=>tqv)
-						 when "humidity"
-						   fill_in('humity', :with=>tqv)
-						 end
+						 select(district, :from => "district")
+						 select(light, :from => "lightCondition")
+						 select(rain, :from => "rainCondition")
+						 select(windSpeed, :from => "wind_speed")
+						 fill_in('temprature', :with=>temp)
+						 fill_in('humity', :with=>humidity)
 						 click_button('dobt')						 
 					   end
 					 end
