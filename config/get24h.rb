@@ -1,6 +1,6 @@
 require 'json'
 
-json_file_path="tt.json"
+json_file_path="G:/tt.json"
 
 jsl=[]
 File.open(json_file_path, 'r:utf-8') do |file|
@@ -20,13 +20,22 @@ jsl.each do |j|
      v.each do |dk,dv|
        dv.each do |dkk,dkv|
          if dkk == "name"
-            puts dkv
             chengqu = dkv
+            puts chengqu
          end
        end
        if dk == "hourly"
          dv.each do |hdk,hdv|
-           puts hdk
+#           puts hdk
+		   hdk.each do |tqk,tqv|
+
+		     if tqk == "condition"
+			   if tqv == "雾"
+			     tqv="多云"
+			     puts tqv
+			   end
+			 end
+		   end
          end
        end
      end
