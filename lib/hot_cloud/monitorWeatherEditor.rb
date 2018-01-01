@@ -161,10 +161,15 @@ module HotCloud
                  dv.each do |dkk,dkv|
                    if dkk == "name"
                      chengqu = dkv
-					 if chengqu == "北京市朝阳区"
+					 case chengqu
+					 when "北京市朝阳区"
 					   chengqu = "朝阳区"
-					 elseif chengqu == "北京市通州区"
+					 when "北京市通州区"
 					   chengqu = "通州区"
+					 when "密云区"
+					   chengqu = "密云县"
+					 when "延庆区"
+					   chengqu = "延庆县"
 					 end
                      puts chengqu
                    end
