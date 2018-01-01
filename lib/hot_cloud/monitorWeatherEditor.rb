@@ -45,19 +45,107 @@ module HotCloud
           Util.wait_close_popup_window
           page.driver.browser.switch_to.window(current_page)
         end
-		
+
+        ##
+        # Get weather information from moji and return it as a json list
+        #   MonitorWeatherEditor.get_24h_json_list(mojifile)
+        #
+        def get_24h_json_list(mojifile)
+          mojifile.gsub!("/", "\\") if Selenium::WebDriver::Platform.windows?
+          jsl=[]
+          File.open(mojifile, 'r:utf-8') do |file|
+            file.each do |line|
+              jsl.push(line)
+            end
+          end
+          jsl
+        end
+
+        ##
+        # Get useful weather information from moji hour hash data and return it as a new hash
+        #   MonitorWeatherEditor.get_useful_weather(mojihour)
+        #
+        def get_useful_weather(mojihour)
+          useful={"date"=>"2017-12-31", "hour"=>"11","lightCondition"=>"晴","rainCondition"=>"无", "humidity"=>"15","temprature"=>"3", "wind_speed"=>"9"}
+          mojihour.each do |k,v|
+            case k
+            when "date"
+              useful["date"]=v
+            when "hour"
+              case v
+              when 0
+			    useful["hour"]="00"
+              when 1
+			    useful["hour"]="01"
+              when 2
+			    useful["hour"]="02"
+              when 3
+			    useful["hour"]="03"
+              when 4
+			    useful["hour"]="04"
+              when 5
+			    useful["hour"]="05"
+              when 6
+			    useful["hour"]="06"
+              when 7
+			    useful["hour"]="07"
+              when 8
+			    useful["hour"]="08"
+              when 9
+			    useful["hour"]="09"
+              else
+			    useful["hour"]=v
+              end
+			when "humidity"
+              useful["humidity"]=v
+            when "temprature"
+              useful["temprature"]=v
+            when "condition"
+              case v
+              when "晴"
+                useful["lightCondition"]="晴"
+                useful["rainCondition"]="无"
+              when "多云"
+                useful["lightCondition"]="多云"
+                useful["rainCondition"]="无"
+              when "少云"
+                useful["lightCondition"]="多云"
+                useful["rainCondition"]="无"
+              when "雾"
+                useful["lightCondition"]="多云"
+                useful["rainCondition"]=v
+              else
+                useful["lightCondition"]="阴天"
+                useful["rainCondition"]=v
+              end
+            when "windSpeed"
+              v=v.to_i
+              case v
+              when 0 .. 11
+                useful["wind_speed"]="<3"
+              when 12 ..19
+                useful["wind_speed"]="3"
+              when 20 .. 28
+                useful["wind_speed"]="4"
+              when 29 .. 38
+                useful["wind_speed"]="5"
+              when 39 .. 49
+                useful["wind_speed"]="6"
+              else
+                useful["wind_speed"]="8"
+              end
+            end
+          end
+          useful
+        end
+
 		##
         # Get weather information from moji
         #   MonitorWeatherEditor.add_24hour_weather_from_moji(weatherfilepath)
         #
         def add_24hour_weather_from_moji(weatherfilepath)
-		  weatherfilepath.gsub!("/", "\\") if Selenium::WebDriver::Platform.windows?
-		  jsl=[]
-		  File.open(weatherfilepath, 'r:utf-8') do |file|
-		   file.each do |line|
-		    jsl.push(line)
-		   end
-		  end
+
+		  jsl=get_24h_json_list(weatherfilepath)
 
 		  find('li', :text=>'监测数据').click
 		  find('li', :text=>'分时天气数据').click
@@ -69,75 +157,36 @@ module HotCloud
 		    diqu.each do |k,v|
 #		     puts k
 		     if k == "data" 
-		       v.each do |dk,dv|
-		         dv.each do |dkk,dkv|
-		           if dkk == "name"
-		              chengqu = dkv
-		              puts chengqu
-		           end
-		         end
-		         if dk == "hourly"
-		           dv.each do |hdk,hdv|
-		             hdk.each do |tqk,tqv|
-					   click_button('newbt')
-					   Util.popup_window do
-					     select("北京", :from => "province")
-						 select("北京市", :from => "city")
-						 select(chengqu, :from => "district")
-					     case tqk
-					     when "date"
-						   puts tqv
-						   fill_in('date', :with=>tqv)
-						 when "hour"
-						   puts tqv
-						   select(tqv, :from => "hour")
-					     when "condition"
-						   light="晴"
-						   rain="无"
-						   case tqv
-						   when "晴"
-						     light="晴"
-						   when "雾"
-						     light="多云"
-							 rain=tqv
-						   when "多云"
-						     light="多云"
-						   when "少云"
-						     light="多云"
-					       else
-						     light="阴天"
-							 rain=tqv
-						   end
-						   select(light, :from => "lightCondition")
-						   select(rain, :from => "rainCondition")
-						 when "windSpeed"
-						   windSpeed="<3"
-						   case tqv
-						   when 12 .. 19
-						     windSpeed="3"
-						   when 20 .. 28
-						     windSpeed="4"
-						   when 29 .. 38
-						     windSpeed="5"
-						   when 39 .. 49
-						     windSpeed="6"
-						   when 50 .. 61
-						     windSpeed="7"
-						   when 62 .. 74
-						     windSpeed="8"
-						   end
-						   select(windSpeed, :from => "wind_speed")
-						 when "temp"
-						   fill_in('temprature', :with=>tqv)
-						 when "humidity"
-						   fill_in('humity', :with=>tqv)
-						 end
-						 click_button('dobt')						 
-					   end
-					 end
-		           end
-		         end
-		       end
+               v.each do |dk,dv|
+                 dv.each do |dkk,dkv|
+                   if dkk == "name"
+                     chengqu = dkv
+                     puts chengqu
+                   end
+                 end
+                 if dk == "hourly"
+                   dv.each do |hourk|
+                     tianqi=get_useful_weather(hourk)
+                     puts tianqi["date"],tianqi["hour"]
+
+                     click_button('newbt')
+                     Util.popup_window do
+                       select("北京", :from => "province")
+                       select("北京市", :from => "city")
+                       select(chengqu, :from => "district")
+                       fill_in('date', :with=>tianqi["date"])
+                       select(tianqi["hour"], :from => "hour")
+                       select(tianqi["lightCondition"], :from => "lightCondition")
+                       select(tianqi["rainCondition"], :from => "rainCondition")
+                       select(tianqi["wind_speed"], :from => "wind_speed")
+                       fill_in('temprature', :with=>tianqi["temprature"])
+                       fill_in('humity', :with=>tianqi["humity"])
+                       click_button('dobt')						 
+                     end
+
+                   end
+                 end
+               end
 		     end
 		    end
 		  end
