@@ -73,25 +73,25 @@ module HotCloud
               useful["date"]=v
             when "hour"
               case v
-              when 0
+              when "0"
 			    useful["hour"]="00"
-              when 1
+              when "1"
 			    useful["hour"]="01"
-              when 2
+              when "2"
 			    useful["hour"]="02"
-              when 3
+              when "3"
 			    useful["hour"]="03"
-              when 4
+              when "4"
 			    useful["hour"]="04"
-              when 5
+              when "5"
 			    useful["hour"]="05"
-              when 6
+              when "6"
 			    useful["hour"]="06"
-              when 7
+              when "7"
 			    useful["hour"]="07"
-              when 8
+              when "8"
 			    useful["hour"]="08"
-              when 9
+              when "9"
 			    useful["hour"]="09"
               else
 			    useful["hour"]=v
@@ -167,15 +167,15 @@ module HotCloud
                  if dk == "hourly"
                    dv.each do |hourk|
                      tianqi=get_useful_weather(hourk)
-                     puts tianqi["date"],tianqi["hour"]
-
+					 
                      click_button('newbt')
                      Util.popup_window do
+                       fill_in('date', :with=>tianqi["date"])
+                       select(tianqi["hour"], :from => "hour")
+                       puts tianqi["date"],tianqi["hour"]
                        select("北京", :from => "province")
                        select("北京市", :from => "city")
                        select(chengqu, :from => "district")
-                       fill_in('date', :with=>tianqi["date"])
-                       select(tianqi["hour"], :from => "hour")
                        select(tianqi["lightCondition"], :from => "lightCondition")
                        select(tianqi["rainCondition"], :from => "rainCondition")
                        select(tianqi["wind_speed"], :from => "wind_speed")
