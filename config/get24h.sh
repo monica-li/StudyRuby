@@ -2,32 +2,36 @@
 
 appCode=af6c4d0e9d3544268e5dd1292bd71b07
 token=008d2ad9197090c5dddc76f583616606
-url="http://lliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"
+url="http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"
 
 outputfile="output.txt"
-datafile="./data24h.json"
+datafile="./moji24h-beijing.json"
 
-curl -i -X POST "http://lliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=284609&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=284610&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=3&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=4&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=5&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=6&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=7&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=8&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=9&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=10&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=11&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=12&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=13&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=14&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=15&token=008d2ad9197090c5dddc76f583616606" >>data24h.json
-curl -i -X POST "http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"  -H "Authorization:APPCODE $appCode" --data "cityId=22&token=008d2ad9197090c5dddc76f583616606" $outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=284609&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=284610&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=3&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=4&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=5&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=6&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=7&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=8&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=9&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=10&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=11&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=12&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=13&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=14&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=15&token=$token" >>$outputfile
+curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=22&token=$token" >>$outputfile
 
-sed -e "1,14d" -e "16,42d" -e '44,56d' -e '58,70d' -e '72,84d' -e '86,98d' -e '100,11    2d' -e '114,126d' -e '128,140d' -e '142,154d' -e '156,168d' -e '170,182d' -e '184,19    d' -e '198,210d' -e '212,224d' -e 's#\}HTTP/1.1 200 OK#\}#' $outputfile > $datafile
+cp $outputfile $datafile
+sed -i -e '/^HTTP/d' -e '/^Server/d' -e '/^Date/d' -e '/^Content/d' -e '/^Connection/d' -e '/^Vary/d' -e '/^Access/d' -e '/^X-Ca/d' -e '/^$/d' -e 's#\}HTTP/1.1 200 OK#\}#' $datafile
 
 count=0
-count=`wc -l $datafile`
-if [ count!=16 ]; then
+count=`cat $datafile|wc -l`
+if [ count!=15 ]; then
   echo "Something is wrong......"
+else
+  echo "OKOKOK"
+  rm $outputfile
 fi
