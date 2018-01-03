@@ -98,7 +98,7 @@ module HotCloud
               end
 			when "humidity"
               useful["humidity"]=v
-            when "temprature"
+            when "temp"
               useful["temprature"]=v
             when "condition"
               case v
@@ -114,9 +114,12 @@ module HotCloud
               when "雾"
                 useful["lightCondition"]="多云"
                 useful["rainCondition"]=v
+              when "阴"
+                useful["lightCondition"]="阴天"
+                useful["rainCondition"]="无"
               else
                 useful["lightCondition"]="阴天"
-                useful["rainCondition"]=v
+                useful["rainCondition"]="阴天"
               end
             when "windSpeed"
               v=v.to_i
@@ -182,7 +185,7 @@ module HotCloud
                      Util.popup_window do
                        fill_in('date', :with=>tianqi["date"])
                        select(tianqi["hour"], :from => "hour")
-                       puts tianqi["date"],tianqi["hour"]
+                       puts tianqi["date"]+": "+tianqi["hour"]
                        select("北京", :from => "province")
                        select("北京市", :from => "city")
                        select(chengqu, :from => "district")
