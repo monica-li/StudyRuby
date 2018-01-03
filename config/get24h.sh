@@ -27,11 +27,17 @@ curl -i -X POST $url  -H "Authorization:APPCODE $appCode" --data "cityId=22&toke
 cp $outputfile $datafile
 sed -i -e '/^HTTP/d' -e '/^Server/d' -e '/^Date/d' -e '/^Content/d' -e '/^Connection/d' -e '/^Vary/d' -e '/^Access/d' -e '/^X-Ca/d' -e '/^$/d' -e 's#\}HTTP/1.1 200 OK#\}#' $datafile
 
+datafile2rspec="../spec/monitor/moji24h-beijing.json"
+d=`date +%Y%m%d`
+datafilejdate="../data/moji24h-beijing-"$d".json"
 count=0
 count=`cat $datafile|wc -l`
-if [ count!=15 ]; then
-  echo "Something is wrong......"
-else
+if [ count==15 ]; then
   echo "OKOKOK"
+  cp $datafile $datafile2rspec
+  cp $datafile $datafilejdate
   rm $outputfile
+else
+  echo $count
+  echo "Something is wrong......"
 fi
