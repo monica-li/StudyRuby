@@ -10,7 +10,7 @@ serveruser=root
 if [ ! -d $locallogpath ]; then
  mkdir $locallogpath
 fi
-cd $logpath
+cd $locallogpath
 scp $serveruser@$serverip:$serverlogpath/$logfile $locallogpath
 
 rtcmd="rm -f $serverlogpath/$logfile"
