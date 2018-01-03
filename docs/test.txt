@@ -1,0 +1,252 @@
+
+
+http://47.92.123.34:8080/.../../ry/weather
+c enum WindSpeedType{
+  LESSTHREE,
+  THREE,
+  THREETOFOUR,
+  FOUR,
+  FOURTOFIVE,
+  FIVE,
+  FIVETOSIX,
+  SIX,
+  SIXTOSEVEN,
+  SEVEN,
+  SEVENTOEIGHT,
+  EIGHT,
+  MORETHANEIGHT
+ }
+ 
+ public enum WeatherType {
+  SUNNY, //晴
+  CLOUDY, //多云
+  OVERCASE, //阴天
+  SHOWER, //阵雨
+  SHOWERWITHICE, //阵雨夹冰雹
+  SHOWERWITHSNOW, //阵雨夹雪
+  LIGHTRAINY, //小雨
+  RAINY, //中雨
+  HEAVYRAINY, //大雨
+  STORM, //暴雨
+  HEAVYSTORM, //大暴雨
+  SNOWSHOWER, //阵雪
+  LIGHTSNOW, //小雪
+  SNOW, //中雪
+  HEAVYSNOW, //大雪
+  BLIZZARD, //暴雪
+  FOG, //雾
+  ICERAIN, //冰雨
+  LIGHTRAINTORAIN, //小雨转中雨
+  RAINTOHEAVYRAIN, //中雨转大雨
+  HEAVYRAINTOSTORM, //大雨转暴雨
+  STORMTOHEAVYSTORM, //暴雨转大暴雨
+  LIGHTSNOWTOSNOW, //小雪转中雪
+  SNOWTOHEAVYSNOW, //中雪转大雪
+  HEAVYSNOWTOBLIZZARD //大雪转暴雪
+ }
+ 
+ public enum LightConditionType {
+  SUNNY, //晴
+  CLOUDY, //多云
+  OVERCASE //阴天
+ }
+ 
+ public enum RainConditionType {
+  NONE, //无
+  SHOWER, //阵雨
+  SHOWERWITHICE, //阵雨夹冰雹
+  SHOWERWITHSNOW, //阵雨夹雪
+  LIGHTRAINY, //小雨
+  RAINY, //中雨
+  HEAVYRAINY, //大雨
+  STORM, //暴雨
+  HEAVYSTORM, //大暴雨
+  SNOWSHOWER, //阵雪
+  LIGHTSNOW, //小雪
+  SNOW, //中雪
+  HEAVYSNOW, //大雪
+  BLIZZARD, //暴雪
+  ICERAIN, //冰雨
+  LIGHTRAINTORAIN, //小雨转中雨
+  RAINTOHEAVYRAIN, //中雨转大雨
+  HEAVYRAINTOSTORM, //大雨转暴雨
+  STORMTOHEAVYSTORM, //暴雨转大暴雨
+  LIGHTSNOWTOSNOW, //小雪转中雪
+  SNOWTOHEAVYSNOW, //中雪转大雪
+  HEAVYSNOWTOBLIZZARD //大雪转暴雪
+ }
+ 
+ 
+ public enum WeatherDataType{
+  RAW,
+  META
+ }
+
+{project.id :5,
+dataType:'RAW',
+lightCondition: '',
+rainCondition:''
+....
+
+...
+
+public class Weather extends Base {
+
+ private static final long serialVersionUID = 1L;
+ 
+ public enum WindSpeedType{
+  LESSTHREE,
+  THREE,
+  THREETOFOUR,
+  FOUR,
+  FOURTOFIVE,
+  FIVE,
+  FIVETOSIX,
+  SIX,
+  SIXTOSEVEN,
+  SEVEN,
+  SEVENTOEIGHT,
+  EIGHT,
+  MORETHANEIGHT
+ }
+ 
+ public enum WeatherType {
+  SUNNY, //晴
+  CLOUDY, //多云
+  OVERCASE, //阴天
+  SHOWER, //阵雨
+  SHOWERWITHICE, //阵雨夹冰雹
+  SHOWERWITHSNOW, //阵雨夹雪
+  LIGHTRAINY, //小雨
+  RAINY, //中雨
+  HEAVYRAINY, //大雨
+  STORM, //暴雨
+  HEAVYSTORM, //大暴雨
+  SNOWSHOWER, //阵雪
+  LIGHTSNOW, //小雪
+  SNOW, //中雪
+  HEAVYSNOW, //大雪
+  BLIZZARD, //暴雪
+  FOG, //雾
+  ICERAIN, //冰雨
+  LIGHTRAINTORAIN, //小雨转中雨
+  RAINTOHEAVYRAIN, //中雨转大雨
+  HEAVYRAINTOSTORM, //大雨转暴雨
+  STORMTOHEAVYSTORM, //暴雨转大暴雨
+  LIGHTSNOWTOSNOW, //小雪转中雪
+  SNOWTOHEAVYSNOW, //中雪转大雪
+  HEAVYSNOWTOBLIZZARD //大雪转暴雪
+ }
+ 
+ public enum LightConditionType {
+  SUNNY, //晴
+  CLOUDY, //多云
+  OVERCASE //阴天
+ }
+ 
+ public enum RainConditionType {
+  NONE, //无
+  SHOWER, //阵雨
+  SHOWERWITHICE, //阵雨夹冰雹
+  SHOWERWITHSNOW, //阵雨夹雪
+  LIGHTRAINY, //小雨
+  RAINY, //中雨
+  HEAVYRAINY, //大雨
+  STORM, //暴雨
+  HEAVYSTORM, //大暴雨
+  SNOWSHOWER, //阵雪
+  LIGHTSNOW, //小雪
+  SNOW, //中雪
+  HEAVYSNOW, //大雪
+  BLIZZARD, //暴雪
+  ICERAIN, //冰雨
+  LIGHTRAINTORAIN, //小雨转中雨
+  RAINTOHEAVYRAIN, //中雨转大雨
+  HEAVYRAINTOSTORM, //大雨转暴雨
+  STORMTOHEAVYSTORM, //暴雨转大暴雨
+  LIGHTSNOWTOSNOW, //小雪转中雪
+  SNOWTOHEAVYSNOW, //中雪转大雪
+  HEAVYSNOWTOBLIZZARD //大雪转暴雪
+ }
+ 
+ 
+ public enum WeatherDataType{
+  RAW,
+  META
+ }
+
+ @Id
+ @GeneratedValue(strategy = GenerationType.AUTO)
+ @Column(name = "id")
+ private long id;
+
+ // 所属项目
+ @ManyToOne(fetch = FetchType.LAZY)
+ @JoinColumn(name = "project_id", referencedColumnName = "id")
+ private Project project;
+
+ // 所属供暖季
+ @ManyToOne(fetch = FetchType.LAZY)
+ @JoinColumn(name = "session_id", referencedColumnName = "id")
+ private Session session;
+
+ // 记录时间
+ @XmlJavaTypeAdapter(DateTimeAdapter.class)
+ @Temporal(TemporalType.TIMESTAMP)
+ @Column(name = "time")
+ private Date time;
+
+ // 风速
+ @Column(name = "wind_speed")
+ private float wind_speed;
+
+ // 温度
+ @Column(name = "temprature")
+ private float temprature;
+ 
+ // 最高温度
+ @Column(name = "top_temprature")
+ private float top_temprature;
+  
+ // 最低温度
+ @Column(name = "low_temprature")
+ private float low_temprature;
+
+ // 湿度
+ @Column(name = "humidity")
+ private float humidity;
+
+ // 光照度
+ @Column(name = "light")
+ private float light;
+
+ @Column(name = "weather_type")
+ private WeatherType weather_type;
+ 
+ @Column(name = "light_condition")
+ private LightConditionType lightCondition;
+ 
+ @Column(name = "rain_condition")
+ private RainConditionType rainCondition;
+ 
+ //原始数据，还是处理过的数据，比如平均温度
+ @Column(name = "data_type")
+ private WeatherDataType dataType;
+ 
+ @Column(name="province", nullable=false)
+ private String province;
+ 
+ @Column(name = "city", nullable = false)
+ private String city;
+ 
+ @Column(name = "street")
+ private String street;
+ 
+ @Column(name = "district", nullable = false)
+ private String district;
+ // 已删除标志
+ @Column(name = "archived")
+ private boolean archived;
+
+
+
