@@ -4,30 +4,27 @@
 
 serverip=47.92.123.34
 serveruser=root
+mysqluser=
+mysqlpwd=
+mysqldb=
 
-dbpath=/var/lib/mysql
+localdbbakpath=/g/HotCloud/dbbak/
+#localdbbakpath=/Users/monica-li/hotcloud/StudyRuby/config
+cd $localdbbakpath
 
-d=`date +%Y%m%d`
-localpath="/g/HotCloud/dbbak/"$d
+time="$(date +"%Y%m%d%H%M%S")"
+backupfile="$mysqldb"_"$time.sql"
+rmpath=/usr/testgit/mysqlbak
 
-if [ ! -d $localpath ]; then
- echo "create local backup path: "$localpath
- mkdir $localpath
-fi
+echo "Start to export data..."
+sshcmd="pushd $rmpath;mysqldump -u$mysqluser -p$mysqlpwd $mysqldb > $backupfile"
+ssh $serveruser@$serverip $sshcmd
 
-cd $localpath
+echo "Start to copy bak file to local..."
+scp $serveruser@$serverip:$rmpath/$backupfile $localdbbakpath/$backupfile
 
-cmd="rm -f $serverlogpath/$logfile"
-#ssh $serveruser@$serverip $rtcmd
-
-echo "Start to copy db..."
-
-#scp $serveruser@$serverip:$dbpath/* $localpath
-#mkdir $localpath/mysql
-#scp $serveruser@$serverip:$dbpath/mysql/* $localpath/mysql
-#mkdir $localpath/ryengy
-scp $serveruser@$serverip:$dbpath/ryengy/* $localpath/ryengy
-#mkdir $localpath/performance_schema
-scp $serveruser@$serverip:$dbpath/performance_schema/* $localpath/performance_schema
+echo "Clean the bak file in server"
+sshcmd="pushd $rmpath;rm -f $backupfile"
+ssh $serveruser@$serverip $sshcmd
 
 echo "DONE!!!"
