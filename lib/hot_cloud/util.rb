@@ -66,6 +66,16 @@ module HotCloud
         end
 
         ##
+        # get number of milliseconds since 1970-01-01 00:00:00 UTC with date and hour
+        #		
+        def get_microsecond(datestr,hourstr)
+          # add timezone +08:00
+          strt=datestr+" "+hourstr+":00:00+08:00"
+          # strftime('%Q') Number of milliseconds since 1970-01-01 00:00:00 UTC
+          DateTime.parse(strt).strftime('%Q')
+        end
+
+        ##
         # A helper method to simplify the operation of popup window , for example
         #     Util.popup_window{
         #       page.execute_script "window.close()"
