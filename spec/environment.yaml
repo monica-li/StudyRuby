@@ -4,3 +4,4 @@ port :
 user : 
 password : 
 download_dir : spec\downloadfiles
+reststr : 

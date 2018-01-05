@@ -75,7 +75,7 @@ module HotCloud
         # 		and return it as a new hash
         #   MonitorWeatherEditor.get_hotcloud_info_from_moji(mojihour)
         #
-        def get_hotcloud_info_from_moji_rest(mojihour)
+        def get_hotcloud_info_from_moji_rest(mojihour,district)
           hotcloud={"project.id"=>"5","time"=>1514736000000,"wind_speed"=>"LESSTHREE","temprature"=>30,"humidity"=>45,"province"=>"北京","city"=>"北京市","district"=>"东城区","dataType"=>"RAW","weather_type"=>"SUNNY","lightCondition"=>"SUNNY","rainCondition"=>"NONE","street"=>"","light"=>0,"top_temprature"=>0,"low_temprature"=>0}
           date=""
           hour=""
@@ -234,6 +234,7 @@ module HotCloud
             end
           end
           hotcloud["time"]=Util.get_microsecond(date,hour)
+		  hotcloud["district"]=district
           hotcloud
         end
 
@@ -262,14 +263,16 @@ module HotCloud
 					 when "延庆区"
 					   chengqu = "延庆县"
 					 end
+					 
                      puts chengqu
                    end
                  end
                  if dk == "hourly"
                    dv.each do |hourk|
 				     puts hourk["date"]+": "+hourk["hour"]
-                     tianqi=get_hotcloud_info_from_moji_rest(hourk)
+                     tianqi=get_hotcloud_info_from_moji_rest(hourk,chengqu)
 					 wjson=JSON.generate(tianqi)
+					 puts wjson
                      add_weather_by_rest(auth,wjson)
                    end
                  end
