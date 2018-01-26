@@ -32,7 +32,7 @@ d=`date +%Y%m%d`
 datafilejdate="../data/moji24h-beijing-"$d".json"
 count=0
 count=`cat $datafile|wc -l`
-if [ count==15 ]; then
+if [ $count == 15 ]; then
   echo "OKOKOK"
   cp $datafile $datafile2rspec
   cp $datafile $datafilejdate
@@ -40,4 +40,5 @@ if [ count==15 ]; then
 else
   echo $count
   echo "Something is wrong......"
+  exit 1
 fi
