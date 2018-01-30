@@ -2,8 +2,8 @@
 # This shell is used to backup mysql database
 # at 2018-01-03 by monica-li
 
-serverip=47.92.123.34
-serveruser=root
+serverip=
+serveruser=
 mysqluser=
 mysqlpwd=
 mysqldb=

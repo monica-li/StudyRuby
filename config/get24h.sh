@@ -1,6 +1,6 @@
 #!/bin/sh
 
-appCode=af6c4d0e9d3544268e5dd1292bd71b07
+appCode=
 token=008d2ad9197090c5dddc76f583616606
 url="http://aliv18.data.moji.com/whapi/json/alicityweather/forecast24hours"
 
