@@ -1,6 +1,6 @@
 #!/bin/sh
 
-appCode=af6c4d0e9d3544268e5dd1292bd71b07
+appCode=
 token=1b89050d9f64191d494c806f78e8ea36
 url="http://aliv8.data.moji.com/whapi/json/aliweather/forecast24hours"
 lat=40.226092
