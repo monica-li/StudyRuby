@@ -53,3 +53,6 @@ esac
 # invoke the installProduct.sh to deploy the testing environment
 . ./installProduct.sh
 echo "arg from installProduct.sh: $installResult"
+
+# invoke ruby script
+rspec test_spec.rb -f h -o rspec_result.html
