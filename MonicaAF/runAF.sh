@@ -55,4 +55,10 @@ esac
 echo "arg from installProduct.sh: $installResult"
 
 # invoke ruby script
+# $? is used to get the result of previous command
 rspec test_spec.rb -f h -o rspec_result.html
+if [ "$?" == 0 ]; then
+  echo "test passed"
+else
+  echo "test failed"
+fi
