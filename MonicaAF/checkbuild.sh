@@ -1,6 +1,8 @@
 #!/bin/sh
 
-distripath="/Users/monica-li/test/1.1"
+productname="test"
+version="1.1"
+distripath="/Users/monica-li/$productname/$version"
 runAFpath="/Users/monica-li/mygit/StudyRuby/MonicaAF"
 
 buildlist="$runAFpath/buildlist.log"
@@ -14,7 +16,7 @@ if [ $? -eq 1 ]; then
     echo $newbuild >> $buildlist
     popd $distripath
     pushd $runAFpath
-    . ./runAF.sh
+    . ./runAF.sh -P $productname -V $version -B $newbuild
  else
 	echo "no new file"
 	popd $distripath
